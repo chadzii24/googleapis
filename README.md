@@ -1,3 +1,6 @@
+# Branch note
+Branch adsgen created to help Ads navigate the protoc and related tools. Please feel free to delete afterwards.
+
 # Google APIs
 
 This repository contains the original interface definitions of public
