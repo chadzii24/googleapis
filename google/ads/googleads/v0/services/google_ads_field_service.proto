@@ -21,6 +21,7 @@ package google.ads.googleads.v0.services;
 import "google/ads/googleads/v0/resources/google_ads_field.proto";
 import "google/api/annotations.proto";
 
+option go_package = "ads.google.com/go/v0/services;services";
 option java_package = "com.google.ads.googleads.v0.services";
 option java_outer_classname = "GoogleAdsFieldServiceProto";
 option java_multiple_files = true;
@@ -33,6 +34,12 @@ option php_metadata_namespace = "Google\\Ads\\GoogleAds\\V0\\Services";
 
 // Service to fetch Google Ads API fields.
 service GoogleAdsFieldService {
+  // Don't know what these should be; just adding something so generation passes.
+  option (google.api.default_host) = "ads.googleapis.com";
+  option (google.api.oauth) = {
+    scopes: ["https://www.googleapis.com/auth/cloud-platform"]
+  };
+
   // Returns just the requested field.
   rpc GetGoogleAdsField(GetGoogleAdsFieldRequest)
       returns (resources.GoogleAdsField) {

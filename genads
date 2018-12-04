@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# Usage, from the googleapis root, run: `COMMON_PROTOS=path/to/api-common-protos/ ./genads`
+
+set -e
+
+if [ -z "$COMMON_PROTOS" ]; then
+	echo 2>&1 'need $COMMON_PROTOS variable pointed to a copy of https://github.com/googleapis/api-common-protos'
+	exit 1
+fi
+
+ptc() {
+	protoc -I "$COMMON_PROTOS" -I $(pwd) $*
+}
+
+mkdir -p genads_out
+rm -rf genads_out/*
+
+# We set up go_package so that all files in the same directory has the same go_package, so we can go one directory at a time.
+# This is the usual case.
+# If we decide to customize go_package, then we'd call `protoc a.proto b.proto ...` where all protos in one invocation
+# have the same go_package, then repeat as many times as we have unique go_package's.
+ptc --go_out=plugins=grpc:genads_out google/ads/googleads/v0/common/*.proto
+ptc --go_out=plugins=grpc:genads_out google/ads/googleads/v0/enums/*.proto
+ptc --go_out=plugins=grpc:genads_out google/ads/googleads/v0/errors/*.proto
+ptc --go_out=plugins=grpc:genads_out google/ads/googleads/v0/resources/*.proto
+ptc --go_out=plugins=grpc:genads_out google/ads/googleads/v0/services/*.proto
+
+# Here we put one service in its own package. If you want services in files A and B in one package, pass A and B to the same invocation.
+ptc --go_gapic_out=genads_out --go_gapic_opt='ads.google.com/go/apiv0/adgroupad;adgroupad' google/ads/googleads/v0/services/ad_group_ad_service.proto
+ptc --go_gapic_out=genads_out --go_gapic_opt='ads.google.com/go/apiv0/adgroupbidmod;adgroupbidmod' google/ads/googleads/v0/services/ad_group_ad_service.proto
+ptc --go_gapic_out=genads_out --go_gapic_opt='ads.google.com/go/apiv0/adgroupcriterion;adgroupcriterion' google/ads/googleads/v0/services/ad_group_ad_service.proto
+ptc --go_gapic_out=genads_out --go_gapic_opt='ads.google.com/go/apiv0/adgroup;adgroup' google/ads/googleads/v0/services/ad_group_service.proto
+ptc --go_gapic_out=genads_out --go_gapic_opt='ads.google.com/go/apiv0/biddingstrategy;biddingstrategy' google/ads/googleads/v0/services/bidding_strategy_service.proto
+ptc --go_gapic_out=genads_out --go_gapic_opt='ads.google.com/go/apiv0/campaignbudget;campaignbudget' google/ads/googleads/v0/services/campaign_budget_service.proto
+ptc --go_gapic_out=genads_out --go_gapic_opt='ads.google.com/go/apiv0/campaigncriterion;campaigncriterion' google/ads/googleads/v0/services/campaign_criterion_service.proto
+ptc --go_gapic_out=genads_out --go_gapic_opt='ads.google.com/go/apiv0/campaign;campaign' google/ads/googleads/v0/services/campaign_service.proto
+ptc --go_gapic_out=genads_out --go_gapic_opt='ads.google.com/go/apiv0/customer;customer' google/ads/googleads/v0/services/customer_service.proto
+ptc --go_gapic_out=genads_out --go_gapic_opt='ads.google.com/go/apiv0/geotargetconstant;geotargetconstant' google/ads/googleads/v0/services/geo_target_constant_service.proto
+ptc --go_gapic_out=genads_out --go_gapic_opt='ads.google.com/go/apiv0/googleadsfield;googleadsfield' google/ads/googleads/v0/services/google_ads_field_service.proto
+ptc --go_gapic_out=genads_out --go_gapic_opt='ads.google.com/go/apiv0/googleads;googleads' google/ads/googleads/v0/services/google_ads_service.proto
+ptc --go_gapic_out=genads_out --go_gapic_opt='ads.google.com/go/apiv0/keywordview;keywordview' google/ads/googleads/v0/services/keyword_view_service.proto
+ptc --go_gapic_out=genads_out --go_gapic_opt='ads.google.com/go/apiv0/recommendation;recommendation' google/ads/googleads/v0/services/recommendation_service.proto
+
+echo 2>&1 'finished generating; making sure everything compiles'
+cd genads_out/ads.google.com/go
+go mod init ads.google.com/go
+go build ./...

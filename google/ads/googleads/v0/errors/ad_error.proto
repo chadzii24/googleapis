@@ -18,6 +18,7 @@ syntax = "proto3";
 
 package google.ads.googleads.v0.errors;
 
+option go_package = "ads.google.com/go/v0/errors;errors";
 option java_package = "com.google.ads.googleads.v0.errors";
 option java_outer_classname = "AdErrorProto";
 option java_multiple_files = true;

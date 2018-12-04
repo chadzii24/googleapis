@@ -74,6 +74,7 @@ import "google/ads/googleads/v0/errors/string_length_error.proto";
 import "google/ads/googleads/v0/errors/url_field_error.proto";
 import "google/protobuf/wrappers.proto";
 
+option go_package = "ads.google.com/go/v0/errors;errors";
 option java_package = "com.google.ads.googleads.v0.errors";
 option java_outer_classname = "ErrorsProto";
 option java_multiple_files = true;

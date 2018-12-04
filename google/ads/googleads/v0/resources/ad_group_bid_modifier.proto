@@ -21,6 +21,7 @@ package google.ads.googleads.v0.resources;
 import "google/ads/googleads/v0/common/criteria.proto";
 import "google/protobuf/wrappers.proto";
 
+option go_package = "ads.google.com/go/v0/resources;resources";
 option java_package = "com.google.ads.googleads.v0.resources";
 option java_outer_classname = "AdGroupBidModifierProto";
 option java_multiple_files = true;

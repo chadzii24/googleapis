@@ -18,6 +18,7 @@ syntax = "proto3";
 
 package google.ads.googleads.v0.enums;
 
+option go_package = "ads.google.com/go/v0/enums;enums";
 option java_package = "com.google.ads.googleads.v0.enums";
 option java_outer_classname = "PageOnePromotedStrategyGoalProto";
 option java_multiple_files = true;

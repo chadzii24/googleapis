@@ -22,6 +22,8 @@ import "google/ads/googleads/v0/common/custom_parameter.proto";
 import "google/ads/googleads/v0/enums/ad_type.proto";
 import "google/protobuf/wrappers.proto";
 
+option go_package = "ads.google.com/go/v0/common;common";
+
 option java_package = "com.google.ads.googleads.v0.common";
 option java_outer_classname = "AdProto";
 option java_multiple_files = true;

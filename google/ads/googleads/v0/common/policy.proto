@@ -20,6 +20,7 @@ package google.ads.googleads.v0.common;
 
 import "google/protobuf/wrappers.proto";
 
+option go_package = "ads.google.com/go/v0/common;common";
 option java_package = "com.google.ads.googleads.v0.common";
 option java_outer_classname = "PolicyProto";
 option java_multiple_files = true;

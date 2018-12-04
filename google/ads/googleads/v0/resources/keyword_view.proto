@@ -18,6 +18,7 @@ syntax = "proto3";
 
 package google.ads.googleads.v0.resources;
 
+option go_package = "ads.google.com/go/v0/resources;resources";
 option java_package = "com.google.ads.googleads.v0.resources";
 option java_outer_classname = "KeywordViewProto";
 option java_multiple_files = true;

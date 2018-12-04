@@ -23,6 +23,7 @@ import "google/ads/googleads/v0/enums/listing_custom_attribute_index.proto";
 import "google/ads/googleads/v0/enums/listing_group_type.proto";
 import "google/protobuf/wrappers.proto";
 
+option go_package = "ads.google.com/go/v0/common;common";
 option java_package = "com.google.ads.googleads.v0.common";
 option java_outer_classname = "CriteriaProto";
 option java_multiple_files = true;
